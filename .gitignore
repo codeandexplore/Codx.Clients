@@ -3,3 +3,5 @@
 ################################################################################
 
 /.vs
+/src/Codx.Client.MvcApp/bin/Debug/netcoreapp3.1
+/src/Codx.Client.MvcApp/obj
