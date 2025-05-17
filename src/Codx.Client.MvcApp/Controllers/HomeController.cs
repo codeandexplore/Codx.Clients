@@ -1,14 +1,9 @@
-﻿using Codx.Client.MvcApp.Models;
-using IdentityServer4;
+using System.Diagnostics;
+using Codx.Client.MvcApp.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Codx.Client.MvcApp.Controllers
 {
@@ -22,26 +17,28 @@ namespace Codx.Client.MvcApp.Controllers
         }
 
         public IActionResult Index()
-        {            
+        {
             return View();
         }
 
-        public async Task<JsonResult> GetUser()
-        {
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var user = User;
-
-            var data = new {
-                access_token = accessToken,
-                userclaims = user.Claims.Select(o => new { Type=o.Type, Value = o.Value }).ToList()
-            };
-
-            return Json(data);
-        }
+        public IActionResult MyProfile() => View();
 
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logout()
+        {
+            // Sign out of both the local cookie and the OpenID Connect provider
+            var callbackUrl = Url.Action("Index", "Home", null, Request.Scheme);
+            return SignOut(
+                new AuthenticationProperties { RedirectUri = callbackUrl },
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                OpenIdConnectDefaults.AuthenticationScheme
+            );
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

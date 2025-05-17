@@ -5,3 +5,4 @@
 /.vs
 /src/Codx.Client.MvcApp/bin/Debug/netcoreapp3.1
 /src/Codx.Client.MvcApp/obj
+/src/Codx.Client.MvcApp/bin/Debug/net8.0
