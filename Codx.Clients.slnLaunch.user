@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "src\\Codx.Client.MvcApp\\Codx.Client.MvcApp.csproj",
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "src\\Codx.Client.API\\Codx.Client.API.csproj",
+        "Action": "StartWithoutDebugging"
+      }
+    ]
+  }
+]
